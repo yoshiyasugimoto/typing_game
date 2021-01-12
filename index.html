@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing game</title>
+</head>
+<style>
+  #characters {
+    font-size:2rem;
+  }
+  #typed{
+    color: red;
+  }
+</style>
+<body>
+  <div id="characters">
+    <span id="typed"></span><span id="untyped">HelloWorld</span>
+  </div>
+  <script>
+    const typedField = document
+    .getElementById("typed")
+    const untypedField = document.getElementById('untyped')
+
+    const strs = [
+      'HelloWorld',
+      'GoogleChrome',
+      "FaceBook",
+      "Apple",
+      "JavaScript"
+
+    ]
+
+    function randomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+
+      function nextString(){
+        const idx = randomInt(strs.length)
+        return strs[idx]
+      }
+
+      function updateTextField(){
+        typedField.textContent = typed
+        untypedField.textContent = untyped
+      }
+
+      function next() {
+          typed = ''
+          untyped = nextString()
+          updateTextField()
+        }
+
+
+    document.addEventListener('keydown',function(e){
+      if (e.key !== untyped.substring(0,1))
+      { return; }
+      typed += untyped.substring(0,1)
+      untyped = untyped.substring(1)
+
+      updateTextField()
+
+      if (untyped === ''){
+        next()
+      }
+    })
+    next()
+  </script>
+</body>
+</html>
